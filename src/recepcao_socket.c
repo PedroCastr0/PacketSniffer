@@ -77,7 +77,7 @@ void dump(const unsigned char *data_buffer, const unsigned int length)
 void intHandler(int dummy)
 {
     printf("#########################################\n");
-    printf("\t\tESTATISTICAS\n\nTotal de pacotes = %d\nPacotes IPV4 = %.2f % \nPacotes IPV6 = %.2f %\nPacotes ARP = %.2f %\n", p.packet_count, (p.ipv4 / p.packet_count) * 100, (p.ipv6 / p.packet_count) * 100, (p.arp / p.packet_count) * 100);
+    printf("\t\tESTATISTICAS\n\nTotal de pacotes = %d\nPacotes IPV4 = %.2f%%\nPacotes IPV6 = %.2f%%\nPacotes ARP = %.2f%%\n", p.packet_count, (p.ipv4 / p.packet_count) * 100, (p.ipv6 / p.packet_count) * 100, (p.arp / p.packet_count) * 100);
     exit(0);
 }
 
@@ -114,19 +114,19 @@ int main(int argc, char *argv[])
         //printf("Ether type: %x%x\n", buff1[12], buff1[13]);
         printf("\n");
 
-        sprintf(type, "%x%x", buff1[12], buff1[13]);
+        sprintf(type, "0%x%x", buff1[12], buff1[13]);
 
-        if (strcmp(type, "80") == 0)
+        if (strcmp(type, "080") == 0)
         {
             p.ipv4++;
             dump(buff1, recv_length);
         }
-        else if (strcmp(type, "86dd") == 0)
+        else if (strcmp(type, "086dd") == 0)
         {
             p.ipv6++;
             dump(buff1, recv_length);
         }
-        else if (strcmp(type, "806") == 0)
+        else if (strcmp(type, "0806") == 0)
         {
             p.arp++;
             dump(buff1, recv_length);
